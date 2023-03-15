@@ -1,31 +1,25 @@
 package com.capstone.Aperture.entity;
 
-import javax.persistence.Entity;
+
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
-public class Product {
+public class Product extends AbstractEntity {
 
-    private Long id;
 
+    @NotEmpty
     private String name;
 
+    @NotEmpty
     private String description;
-
-    private boolean restock;
 
     private int quantity;
 
     private int sold;
 
+    private boolean restock;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
