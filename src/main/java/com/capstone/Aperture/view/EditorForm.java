@@ -7,6 +7,7 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
@@ -18,12 +19,16 @@ import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 
 
+
 public class EditorForm extends FormLayout {
 
     Binder<Product> binder = new BeanValidationBinder<>(Product.class);
     TextField name = new TextField("name");
     TextArea description = new TextArea("description");
     IntegerField quantity = new IntegerField("quantity");
+    IntegerField sold = new IntegerField("sold");
+
+    Checkbox restock = new Checkbox("restock");
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
@@ -34,8 +39,9 @@ public class EditorForm extends FormLayout {
         addClassName("product-form");
         binder.bindInstanceFields(this);
         quantity.setStepButtonsVisible(true);
+        sold.setStepButtonsVisible(true);
 
-        add(name, description, description, quantity, createButtonLayout());
+        add(name, description, description, quantity, sold, restock, createButtonLayout());
     }
 
     public void setProduct(Product product){
