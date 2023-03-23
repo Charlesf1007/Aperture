@@ -23,6 +23,7 @@ import com.vaadin.flow.shared.Registration;
 
 public class EditorForm extends FormLayout {
 
+    //bean validation binder takes in validation annotations and relating it to product specifies the type of object
     Binder<Product> binder = new BeanValidationBinder<>(Product.class);
     TextField name = new TextField("name");
     TextArea description = new TextArea("description");
@@ -79,6 +80,9 @@ public class EditorForm extends FormLayout {
     public static abstract class ProductFormEvent extends ComponentEvent<EditorForm> {
         /*
             extending the Component event from Vaadin
+
+            inspired from
+            https://vaadin.com/docs/latest/tutorial/forms-and-validation
          */
         private Product product; //product object to hold the product that is being affected
 
@@ -98,7 +102,7 @@ public class EditorForm extends FormLayout {
             }
         }
 
-        public static class DeleteEvent extends ProductFormEvent{
+        public static class DeleteEvent extends ProductFormEvent{ //
             DeleteEvent(EditorForm source, Product product){
                 super(source, product);
             }

@@ -6,6 +6,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -49,7 +50,8 @@ public class ItemsView extends VerticalLayout {
         List<Product> products = service.findAllProducts("");
         for(Product product : products){
             if(product.isRestock()){
-                Notification.show(product.getName()+" needs restocking");
+                Notification notification = Notification.show(product.getName()+" needs restocking");
+                notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
             }
         }
     }

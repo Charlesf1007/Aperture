@@ -16,7 +16,7 @@ public class CrmService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> findAllProducts(String searchText){
+    public List<Product> findAllProducts(String searchText){ //returns all the products depending on the search text
         if(searchText == null || searchText.isEmpty()){
             return productRepository.findAll();
         } else{
@@ -27,8 +27,8 @@ public class CrmService {
 
     public void deleteProduct(Product product){
         productRepository.delete(product);
-    }
-    public void saveProduct(Product product){
+    } //deletes product
+    public void saveProduct(Product product){ //does validation then saves the product
         if(product == null){
             System.err.println("product is null");
             return;
