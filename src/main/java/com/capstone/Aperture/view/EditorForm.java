@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -35,37 +36,37 @@ public class EditorForm extends FormLayout {
     Button cancel = new Button("Cancel");
     private Product product;
 
-    public EditorForm(){
+    public EditorForm(){ //constructor
         addClassName("product-form");
         binder.bindInstanceFields(this);
-        quantity.setStepButtonsVisible(true);
-        sold.setStepButtonsVisible(true);
+        quantity.setStepButtonsVisible(true); //adds the incrementor to the quantity field
+        sold.setStepButtonsVisible(true); //same as quantity but for sold
 
         add(name, description, description, quantity, sold, restock, createButtonLayout());
     }
 
     public void setProduct(Product product){
-
         this.product = product;
         binder.readBean(product);
     }
 
-    private Component createButtonLayout(){
+    private Component createButtonLayout(){ //lays out the buttons and adds listeners to them
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
         cancel.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
 
+        //click listeners for when button is pressed
         save.addClickListener(event->validateAndSave());
         delete.addClickListener(event -> fireEvent(new DeleteEvent(this, product)));
         cancel.addClickListener(event -> fireEvent(new CloseEvent(this)));
 
-        save.addClickShortcut(Key.ENTER);
-        cancel.addClickShortcut(Key.ESCAPE);
+        save.addClickShortcut(Key.ENTER); //keyboard shortcut so instead of clicking save can just enter
+        cancel.addClickShortcut(Key.ESCAPE); //same as above but escape
 
-        return new HorizontalLayout(save, delete, cancel);
+        return new HorizontalLayout(save, delete, cancel); //horizontal makes the buttons in a row
     }
 
-    private void validateAndSave() {
+    private void validateAndSave() { //uses try catch to save product
         try{
             binder.writeBean(product);
             fireEvent(new SaveEvent(this, product));
@@ -103,7 +104,7 @@ public class EditorForm extends FormLayout {
             }
         }
 
-        public static class CloseEvent extends ProductFormEvent{
+        public static class CloseEvent extends ProductFormEvent{ //
             CloseEvent(EditorForm source){
                 super(source, null);
             }

@@ -13,7 +13,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     /*
     heavly inspired from the
     https://vaadin.com/docs/latest/tutorial/database-access
-    uses Java Persistence Query Language to query the database to find
+    uses Java Persistence Query Language to query the database to find a list of products
+    that contain a string in their name
      */
     @Query("select p from Product p " +
             "where lower(p.name) like lower(concat('%', :searchTerm, '%')) ")

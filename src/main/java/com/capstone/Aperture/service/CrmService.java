@@ -24,9 +24,6 @@ public class CrmService {
         }
     }
 
-    public long countProducts(){
-        return productRepository.count();
-    }
 
     public void deleteProduct(Product product){
         productRepository.delete(product);
